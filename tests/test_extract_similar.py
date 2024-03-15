@@ -1,10 +1,13 @@
-from extract_similar.extract_similar import ExtractSimilar
+from globalcampus.extract_similar import ExtractSimilar
 import unittest
 
-class TestExtractSimilar(unittest.TestCase):
+MAIN_URL = 'https://globalcampus.ai/api/find_similar/'
+TOKEN_SECRET= '67b1537b7e8f82c8e1af580f06e89a524efab8b7'
 
-    def test_read_query_text(self):
-        extractsim_obj = ExtractSimilar("Soething random to test")
-        query_text_ = extractsim_obj.read_query_text()
-        print(query_text_)
-        assert len(query_text_)
+class TestExtractSimilar(unittest.TestCase):
+    
+    def test_find_similar(self):
+        
+        extractsim_obj = ExtractSimilar(secret_token=TOKEN_SECRET, main_url=MAIN_URL)
+        data_extracted = extractsim_obj.find_similar(query_text="Cancer and AI")
+        assert len(data_extracted) > 0
